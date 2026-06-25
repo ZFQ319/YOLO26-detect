@@ -1,0 +1,25 @@
+name: pytorch_TargeDetect_env
+channels:
+  - pytorch
+  - Nvidia
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pytorch=2.5.1
+  - torchvision=0.20.1
+  - pytorch-cuda=12.1
+  - numpy
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - tqdm
+  - pyyaml
+  - pip:
+      - onnxruntime-gpu
+      - grad-cam
+      - seaborn
+      - opencv-python
+      - thop
+      - datetime
+      - shapely

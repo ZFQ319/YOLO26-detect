@@ -1,0 +1,2 @@
+Timestamp,Model,Device,Batch,Size,Params(M),FLOPs(G),Latency(ms),Latency_Std(ms),CV(%),FPS,Throughput,Memory(MB),GPU_Util(%),Power(W),Energy(mJ)
+2026-06-14 20:46:06,runs/detect/paper2/HRSID/yolov8n_HRSID-bbox_640_MaxEpoch300_SGD_lr0.01_seed42/weights/best.pt,cuda,1,640,3.01,8.08,43.95,32.365,73.6,22.75,22.75,7993.0,87.25,79.98,3515.574

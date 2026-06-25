@@ -1,0 +1,138 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
+# Global configuration YAML with settings and hyperparameters for YOLO training, validation, prediction and export
+# For documentation see https://docs.ultralytics.com/usage/cfg/
+
+task: detect # (str) YOLO task, i.e. detect, segment, classify, pose, obb
+mode: train # (str) YOLO mode, i.e. train, val, predict, export, track, benchmark
+
+# Train settings -------------------------------------------------------------------------------------------------------
+model: # (str, optional) path to model file, i.e. yolov8n.pt or yolov8n.yaml
+data: # (str, optional) path to data file, i.e. coco8.yaml
+epochs: 100 # (int) number of epochs to train for
+time: # (float, optional) max hours to train; overrides epochs if set
+patience: 100 # (int) early stop after N epochs without val improvement
+batch: 16 # (int) batch size; use -1 for AutoBatch
+imgsz: 640 # (int | list) train/val use int (square); predict/export may use [h,w]
+save: True # (bool) save train checkpoints and predict results
+save_period: -1 # (int) save checkpoint every N epochs; disabled if < 1
+cache: False # (bool | str) cache images in RAM (True/'ram') or on 'disk' to speed dataloading; False disables
+device: # (int | str | list) device: 0 or [0,1,2,3] for CUDA, 'cpu'/'mps', or -1/[-1,-1] to auto-select idle GPUs
+workers: 8 # (int) dataloader workers (per RANK if DDP)
+project: # (str, optional) project name for results root
+name: # (str, optional) experiment name; results in 'project/name'
+exist_ok: False # (bool) overwrite existing 'project/name' if True
+pretrained: True # (bool | str) use pretrained weights (bool) or load weights from path (str)
+optimizer: auto # (str) optimizer: SGD, Adam, Adamax, AdamW, NAdam, RAdam, RMSProp, or auto
+verbose: True # (bool) print verbose logs during training/val
+seed: 0 # (int) random seed for reproducibility
+deterministic: True # (bool) enable deterministic ops; reproducible but may be slower
+single_cls: False # (bool) treat all classes as a single class
+rect: False # (bool) rectangular batches for train; rectangular batching for val when mode='val'
+cos_lr: False # (bool) cosine learning rate scheduler
+close_mosaic: 10 # (int) disable mosaic augmentation for final N epochs (0 to keep enabled)
+resume: False # (bool) resume training from last checkpoint in the run dir
+amp: True # (bool) Automatic Mixed Precision (AMP) training; True runs AMP capability check
+fraction: 1.0 # (float) fraction of training dataset to use (1.0 = all)
+profile: True # (bool) profile ONNX/TensorRT speeds during training for loggers
+freeze: # (int | list, optional) freeze first N layers (int) or specific layer indices (list)
+multi_scale: 0.0 # (float) multi-scale range as a fraction of imgsz; sizes are rounded to stride multiples
+compile: False # (bool | str) enable torch.compile() backend='inductor'; True="default", False=off, or "default|reduce-overhead|max-autotune-no-cudagraphs"
+
+# Segmentation
+overlap_mask: True # (bool) 训练时将实例掩码合并为一个遮罩 (segment only)
+mask_ratio: 4 # (int)掩膜下采样比值（仅分割）
+
+# Classification
+dropout: 0.0 # (float) 退选分类主管（仅分类）
+
+# Val/Test settings ----------------------------------------------------------------------------------------------------
+val: True # (bool)培训期间运行验证/测试
+split: val # (str) 数据集拆分用于评估：“VAL”、“测试”或“训练”
+save_json: False # (bool) 将结果保存为COCO JSON供外部评估
+conf: # (float, optional) 置信度阈值;默认值：预测=0.25，val=0.001
+iou: 0.7 # (float) 用于NMS的IoU阈值
+max_det: 300 # (int) 每幅图像的最大检测次数
+half: False # (bool)如果支持，使用半精度（FP16）
+dnn: False # (bool) 使用 OpenCV DNN 进行 ONNX 推断
+plots: True # (bool) 在列车/Val期间保存剧情和图片
+
+# Predict settings -----------------------------------------------------------------------------------------------------
+source: # (str, optional) 用于图片或视频的path/dir/URL/stream;例如，“ultralytics/assets”或“0”用于摄像头
+vid_stride: 1 # (int) 每隔N帧读取视频源
+stream_buffer: False # (bool) 真实缓冲区对所有帧进行缓冲;False 保留低延迟流的最新帧
+visualize: False # (bool)可视化模型特征（预测）或TP/FP/FN混淆（val）
+augment: False # (bool)在预测过程中应用测试时间增益
+agnostic_nms: False # (bool) 职业无关性 NMS
+classes: # (int | list[int], optional) filter by class id(s), e.g. 0 or [0,2,3]
+retina_masks: False # (bool) 使用高分辨率分割遮罩（片段）
+embed: # (list[int], optional) 返回给定层索引的特征嵌入
+
+# Visualize settings ---------------------------------------------------------------------------------------------------
+show: False # (bool)如果支持，可以在窗口中显示图片/视频
+save_frames: False # (bool) 从视频预测中保存单个帧
+save_txt: False # (bool) 将结果保存为.txt文件（XYWH格式）
+save_conf: False # (bool) 保存信心分数并附带结果
+save_crop: False # (bool) 将裁剪的预测区域保存为文件
+show_labels: True # (bool) 在图片上绘制类别标签，例如“person”
+show_conf: True # (bool) 在图像上绘制置信值，例如“0.99”
+show_boxes: True # (bool) 在图像上绘制边界框
+line_width: # (int, optional) 方框的线宽;如果没有设置，会自动根据图像尺寸缩放
+
+# Export settings ------------------------------------------------------------------------------------------------------
+format: onnx # (str) target format, e.g. torchscript|onnx|openvino|engine|coreml|saved_model|pb|tflite|edgetpu|tfjs|paddle|mnn|ncnn|imx|rknn|executorch
+keras: False # (bool) TF SavedModel only (format=saved_model); enable Keras layers during export
+optimize: False # (bool) TorchScript only; apply mobile optimizations to the scripted model
+int8: False # (bool) INT8/PTQ where supported (openvino, tflite, tfjs, engine, imx); needs calibration data/fraction
+dynamic: False # (bool) dynamic shapes for torchscript, onnx, openvino, engine; enable variable image sizes
+simplify: True # (bool) ONNX/engine only; run graph simplifier for cleaner ONNX before runtime conversion
+opset: # (int, optional) ONNX/engine only; opset version for export; leave unset to use a tested default
+workspace: # (float, optional) engine (TensorRT) only; workspace size in GiB, e.g. 4
+nms: False # (bool) fuse NMS into exported model when backend supports; if True, conf/iou apply (agnostic_nms except coreml)
+
+# Hyperparameters ------------------------------------------------------------------------------------------------------
+# ####################################### 学习率调节策略 #######################################
+lr0: 0.01 # (float) initial learning rate (SGD=1e-2, Adam/AdamW=1e-3)
+lrf: 0.01 # (float) final LR fraction; final LR = lr0 * lrf
+momentum: 0.937 # (float) SGD momentum or Adam beta1
+weight_decay: 0.0005 # (float) weight decay (L2 regularization)
+warmup_epochs: 3.0 # (float) warmup epochs (fractions allowed)
+warmup_momentum: 0.8 # (float) initial momentum during warmup
+warmup_bias_lr: 0.1 # (float) bias learning rate during warmup
+
+#################################### 损失增益超参数 #######################################
+box: 7.5 # (float) box损增益
+cls: 0.5 # (float) 分类损耗增益
+dfl: 1.5 # (float) 分布焦损增益
+angle: 1.0 # （float）定向角度损失增益（OBB任务）
+
+pose: 12.0 # (float) 位势损失增益 (pose tasks)
+kobj: 1.0 # (float) 关键点对象性损失增益(pose tasks)
+rle: 1.0 # (float) RLE 损失增益 (pose tasks)
+nbs: 64 # (int) 用于loss归一化的标称批次尺寸
+
+#################################### 数据增强超参数设置 #######################################
+hsv_h: 0.0 # (float) HSV色相增加比例
+hsv_s: 0.0 # (float) HSV饱和度增加分数
+hsv_v: 0.0 # (float) HSV值（亮度）增强分数
+degrees: 0.0 # (float) 旋转度数（+/-）
+translate: 0.1 # (float) 平移分数 （+/-）
+scale: 0.5 # (float) 比例增益（+/-）
+shear: 0.0 # (float) 剪切度（+/-）
+perspective: 0.0 # (float) 透视分数（0–0.001 典型）
+flipud: 0.0 # (float) 垂直翻转概率
+fliplr: 0.5 # (float) 水平翻转概率
+bgr: 0.0 # (float) RGB↔BGR 通道交换概率
+mosaic: 0.5 # (float) 马赛克增强概率
+mixup: 0.0 # (float) 混合增强概率
+cutmix: 0.0 # (float) CutMix 增强概率
+copy_paste: 0.0 # (float) 分割复制粘贴概率
+copy_paste_mode: flip # (str) 细分的复制粘贴策略：flip or mixup
+auto_augment: randaugment # (str) 分类自动增强策略： randaugment, autoaugment, augmix
+erasing: 0.4 # (float) 分类随机擦除概率（0–0.9），<1.0
+
+# Custom config.yaml ---------------------------------------------------------------------------------------------------
+cfg: # (str, optional) 路径连接到覆盖默认值的 config.yaml
+
+# Tracker settings ------------------------------------------------------------------------------------------------------
+tracker: botsort.yaml # (str)Tracker 配置文件: botsort.yaml or bytetrack.yaml
