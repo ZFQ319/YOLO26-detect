@@ -26,14 +26,14 @@ def main():
     # ###########设置{模型名称：[需要可视化特征热力图的网络层]}#############################################################
     model_names = {
         # 'yolov5n-obb': [17],
-        'yolov8n': [15],
+        'yolov8n-obb': [15],
         # 'yolo12n-obb': [14],
         # 'Mamba-YOLO-T-obb': [14],
         # 'yolov8n-obb-SGAM-SD': [13]
     }
 
     # ########## 特征可视化热力图绘制参数设置 ###########################################################################
-    task = 'bbox'  # 切换为 'bbox' 或 'obb'
+    task = 'obb'  # 切换为 'bbox' 或 'obb'
     # Grad-CAM方法选择：HiResCAM, LayerCAM, EigenGradCAM, EigenCAM, GradCAM, XGradCAM,, GradCAMPlusPlus RandomCAM等
     method = 'LayerCAM'
     backward_type = 'box'  # 反向目标：class/box/all 或 'range'
