@@ -160,7 +160,7 @@ def draw_ground_truth_on_images(original_image, label_path):
                 [int(float(label[7]) * original_image.shape[1]), int(float(label[8]) * original_image.shape[0])]]
             point = np.array(new_box).astype(int)
             color = (0, 255, 0)
-            thickness = 2
+            thickness = 1
             cv2.line(original_image, point[0], point[1], color, thickness)
             cv2.line(original_image, point[1], point[2], color, thickness)
             cv2.line(original_image, point[2], point[3], color, thickness)
