@@ -6,7 +6,7 @@ from ultralytics import YOLO
 
 def main():
 
-    model_path = 'runs/detect/yolo26n_HRSID-bbox_640_MaxEpoch300_SGD_lr0.01_seed42/weights/best.pt'
+    model_path = 'runs/obb/R-SSDD/yolov8n-obb-SGAM-StrC2f-SD_SSDD-obb_640_MaxEpoch300_SGD_lr0.01_seed42/weights/best.pt'
     # data_path = "datasets/HRSID-obb.yaml"
 
     # 加载yolo网络模型
