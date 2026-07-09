@@ -7,7 +7,7 @@ import torch
 # Grad-CAM相关库
 from pytorch_grad_cam import (LayerCAM)
 from pytorch_grad_cam.utils.image import show_cam_on_image, scale_cam_image
-from tqdm import trange
+from tqdm import tqdm
 
 from my_others_code.My_Plot import draw_obb_on_images, draw_bbox_on_image
 # YOLOv8相关库
@@ -218,7 +218,9 @@ class YOLOv8_target(torch.nn.Module):
         result = []  # 存储用于反向传播的标量分量
         time.sleep(0.5)
         # 只对前 ratio 比例的高置信度目标计算 CAM
-        for i in trange(int(post_result.size(0) * self.ratio), desc='特征梯度映射ing'):
+        for i in tqdm(range(int(post_result.size(0) * self.ratio)), 
+               desc='特征梯度映射ing', 
+               bar_format='{desc}: {percentage:3.0f}% | {n_fmt}/{total_fmt} | {elapsed}<{remaining}'):
 
             # 若当前目标的最大类别置信度低于阈值，则终止
             if float(post_result[i].max()) < self.conf:

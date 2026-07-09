@@ -26,10 +26,15 @@ def main():
     # ###########设置{模型名称：[需要可视化特征热力图的网络层]}#############################################################
     model_names = {
         # 'yolov5n-obb': [17],
-        'yolov8n-obb': [15],
         # 'yolo12n-obb': [14],
         # 'Mamba-YOLO-T-obb': [14],
-        # 'yolov8n-obb-SGAM-SD': [13]
+        # 'yolov8n-obb': [15],
+        # 'yolov8n-obb-SD': [15],
+        # 'yolov8n-obb-SGAM': [13],
+        # 'yolov8n-obb-StrC2f': [15],
+        # 'yolov8n-obb-StrC2f-SD': [15],
+        # 'yolov8n-obb-SGAM-SD': [13],
+        'yolov8n-obb-SGAM-StrC2f-SD': [13]
     }
 
     # ########## 特征可视化热力图绘制参数设置 ###########################################################################
