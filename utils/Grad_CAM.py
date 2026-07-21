@@ -1,4 +1,3 @@
-import math
 import time
 
 import cv2
@@ -9,11 +8,10 @@ from pytorch_grad_cam import (LayerCAM)
 from pytorch_grad_cam.utils.image import show_cam_on_image, scale_cam_image
 from tqdm import tqdm
 
-from my_others_code.My_Plot import draw_obb_on_images, draw_bbox_on_image
+from .draw_image import draw_obb_on_images, draw_bbox_on_image
 # YOLOv8相关库
 from ultralytics.nn.tasks import load_checkpoint
-from ultralytics.utils.nms import non_max_suppression
-from ultralytics.utils.ops import xywh2xyxy, xywhr2xyxyxyxy
+from .nms import non_max_suppression, xywh2xyxy, xywhr2xyxyxyxy
 
 
 def main():
@@ -380,12 +378,12 @@ class YOLOv8_heatmap:
                 img: np.ndarray
                 if self.task == 'obb':
                     if self.show_box:
-                        cam_image = draw_obb_on_images(cam_image, boxes, self.colors[cls_id], label, 5)
-                    img = draw_obb_on_images(img, boxes, self.colors[cls_id], label, 5)
+                        draw_obb_on_images(cam_image, boxes, self.colors[cls_id], label, 5)
+                        draw_obb_on_images(img, boxes, self.colors[cls_id], label, 5)
                 else:
                     if self.show_box:
-                        cam_image = draw_bbox_on_image(cam_image, boxes, self.colors[cls_id], label, 5)
-                    img = draw_bbox_on_image(img, boxes, self.colors[cls_id], label, 5)
+                        draw_bbox_on_image(cam_image, boxes, self.colors[cls_id], label, 5)
+                        draw_bbox_on_image(img, boxes, self.colors[cls_id], label, 5)
 
         # 将图像去除填充部分，还原到原始尺寸和RGB格式################################################################
         # ===== 精确计算padding =====

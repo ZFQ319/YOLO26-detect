@@ -8,9 +8,9 @@ if __name__ == '__main__':
     learn_rate = 0.01  # 初始学习率（即SGD=1E-2，亚当=1E-3）
     optimizer = 'SGD'  # 要使用的优化器， choices=['SGD'， 'Adam'， 'AdamW'， 'RMSProp']
 
-    datasets_name = 'HRSID-bbox'
-    model_name = 'yolo26n.yaml'
-    model_path = f'ultralytics/cfg/models/{'26'}/{model_name}'
+    datasets_name = 'SSDD-bbox'
+    model_name = 'yolov5n.yaml'
+    model_path = f'ultralytics/cfg/models/{'v5'}/{model_name}'
     # model_path = f'my_model/Ref_model/{model_name}'
     datasets_path = f'datasets/{datasets_name}.yaml'
     result_out_path = (f'{model_name[:-5]}{''}_{datasets_name}_{str(image_size)}_'

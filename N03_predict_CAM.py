@@ -6,8 +6,8 @@ import numpy as np
 import torch
 from pytorch_grad_cam import (GradCAMPlusPlus, GradCAM, XGradCAM, EigenCAM,
                               HiResCAM, LayerCAM, RandomCAM, EigenGradCAM)
-from my_others_code.Grad_CAM import YOLOv8_heatmap
-from my_others_code.My_Plot import draw_ground_truth_on_images
+from utils.Grad_CAM import YOLOv8_heatmap
+from utils.draw_image import draw_ground_truth_on_images
 
 # 设置随机种子
 np.random.seed(0)
@@ -19,7 +19,7 @@ Device = torch.device(
 def main():
     #########需可视化的图像及其数据集设置{数据集：['图像名陈',........]}####################################################
     imgs_data = {
-        "SSDD": ['001111.jpg', '000219.jpg'],
+        "SSDD": ['000641.jpg', '001091.jpg'],
         # "RSDD": ['103_18_37.jpg', '90_1_3.jpg'],
         # "HRSID": ['P0128_1800_2600_600_1400.jpg', 'P0120_4200_5000_9000_9800.jpg']
     }
@@ -31,7 +31,7 @@ def main():
         # 'yolov8n-obb': [15],
         # 'yolov8n-obb-SD': [15],
         # 'yolov8n-obb-SGAM': [13],
-        # 'yolov8n-obb-StrC2f': [15],
+        'yolov8n-obb-StrC2f': [15],
         # 'yolov8n-obb-StrC2f-SD': [15],
         # 'yolov8n-obb-SGAM-SD': [13],
         'yolov8n-obb-SGAM-StrC2f-SD': [13]
@@ -101,8 +101,8 @@ def main():
 
                 # ##############################得到带真实标注的图像并保存###################################################
                 if dataset not in dataset_got_ground_truth:
-                    ground_truth_image = draw_ground_truth_on_images(original_image, label_path)
-                    cv2.imwrite(save_path + 'ground-' + img_name[:-4] + '.png', ground_truth_image)
+                    ground_truth = draw_ground_truth_on_images(original_image, label_path)
+                    cv2.imwrite(save_path + 'ground-' + img_name[:-4] + '.png', ground_truth)
 
                 # ##################################特征可视化热力图绘制并保存##############################################
                 original_image: np.ndarray
