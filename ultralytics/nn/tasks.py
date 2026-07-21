@@ -426,7 +426,7 @@ class DetectionModel(BaseModel):
                     output = self.forward(x)
                     if self.end2end:
                         output = output[1]["one2many"]
-                    return output["feats"]
+                    return output[1]["feats"] if isinstance(output, (list, tuple)) else output["feats"]
 
                 device = next(self.model.parameters()).device
                 self.model.eval()

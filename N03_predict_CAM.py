@@ -19,7 +19,7 @@ Device = torch.device(
 def main():
     #########需可视化的图像及其数据集设置{数据集：['图像名陈',........]}####################################################
     imgs_data = {
-        "SSDD": ['001111.jpg', '000219.jpg'],
+        "SSDD": ['000641.jpg', '001091.jpg'],
         # "RSDD": ['103_18_37.jpg', '90_1_3.jpg'],
         # "HRSID": ['P0128_1800_2600_600_1400.jpg', 'P0120_4200_5000_9000_9800.jpg']
     }
@@ -31,7 +31,7 @@ def main():
         # 'yolov8n-obb': [15],
         # 'yolov8n-obb-SD': [15],
         # 'yolov8n-obb-SGAM': [13],
-        # 'yolov8n-obb-StrC2f': [15],
+        'yolov8n-obb-StrC2f': [15],
         # 'yolov8n-obb-StrC2f-SD': [15],
         # 'yolov8n-obb-SGAM-SD': [13],
         'yolov8n-obb-SGAM-StrC2f-SD': [13]
