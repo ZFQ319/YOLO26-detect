@@ -12,7 +12,7 @@ def main():
     # 指定测试图像的路径（请根据实际情况修改为您的图像路径）
     image_path = 'E:/ZFQ_Projects/Python_Projects/Datasets_detect/SSDD/obb/images/test'
     # 指定ONNX模型文件的路径（训练好的YOLOv8 OBB模型）
-    model_path = "./runs/obb/R-SSDD/yolov8n-obb_SSDD-obb_640_MaxEpoch300_SGD_lr0.01_seed42/weights/best.onnx"
+    model_path = "runs\\obb\\R-SSDD\\yolov8n-obb-SGAM-StrC2f-SD_SSDD-obb_640_MaxEpoch300_SGD_lr0.01_seed42/weights/best.onnx"
     # 定义类别名称列表（本模型只检测船舶这一类）
     CLASSESE = ['ship']
     # 可选：定义颜色列表，用于绘制不同类别的框（此处未使用）
